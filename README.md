@@ -7,6 +7,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![React](https://img.shields.io/badge/react-19-61dafb.svg)](https://reactjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-async-009688.svg)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
 
@@ -118,4 +119,5 @@ pytest                              # 后端测试套件（mock STT + mock LLM�
 - 重构方案见 [docs/refactor-plan.md](docs/refactor-plan.md)。
 
 ## 许可
-MIT
+
+本项目采用 [MIT 许可证](LICENSE) 开源，可自由使用、修改与分发，请保留版权与许可声明。
