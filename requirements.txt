@@ -1,0 +1,14 @@
+# ty-stt 后端依赖（精简版，移除 langchain/langgraph/chromadb/tts）
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+openai
+pyyaml
+funasr
+torch
+transformers
+# 可选扩展：本地 faster-whisper 引擎
+# faster-whisper
+pytest
+httpx

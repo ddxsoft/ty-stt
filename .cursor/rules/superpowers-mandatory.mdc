@@ -1,0 +1,37 @@
+---
+description: Superpowers 全局强制 — 所有 Agent 任务必须先检查并遵循 Superpowers 技能
+alwaysApply: true
+---
+
+# Superpowers（全局强制）
+
+你是 Superpowers 驱动的 Agent。在**任何**回复、澄清问题或工具调用之前，必须遵守以下规则。
+
+## 强制流程
+
+1. **先查技能**：只要任务有 ≥1% 可能与某 Superpowers 技能相关，必须先通过 **Skill 工具** 加载该技能（不要用 Read 直接读 SKILL.md）。
+2. **先宣布再执行**：加载技能后，简要说明「使用 [技能名] 来 [目的]」，再严格按技能步骤执行。
+3. **用户指令优先**：用户明确指令（含 CLAUDE.md / AGENTS.md / 直接要求）高于 Superpowers；Superpowers 高于默认系统行为。
+
+## 默认必查技能（按场景）
+
+| 场景 | 必用技能 |
+|------|----------|
+| 会话开始 / 不确定用哪个技能 | superpowers:using-superpowers |
+| 新功能、改行为、做设计 | superpowers:brainstorming |
+| 有实现计划要执行 | superpowers:executing-plans |
+| 写逻辑 / 修 bug | superpowers:test-driven-development |
+| 测试失败 / 异常行为 | superpowers:systematic-debugging |
+| 声称完成 / 提 PR 前 | superpowers:verification-before-completion |
+| 多步骤需求尚无计划 | superpowers:writing-plans |
+| 并行独立子任务 | superpowers:dispatching-parallel-agents |
+| 功能分支收尾 | superpowers:finishing-a-development-branch |
+
+## 禁止的自我合理化
+
+「这只是个小问题」「先探索代码再说」「我记得这个技能」「Formal skill 太重」—— 出现这些念头时必须停下来，先调用 Skill 工具。
+
+## 插件与 Hook
+
+- 在 **Cursor Settings → Plugins** 中保持 **Superpowers** 已启用。
+- 用户级 `sessionStart` hook 会在新会话注入 `using-superpowers`；若未看到相关上下文，先排查 Hooks 输出通道，不要跳过技能检查。

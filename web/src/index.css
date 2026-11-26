@@ -1,0 +1,306 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────── 主题变量（HSL 通道） ───────── */
+@layer base {
+  :root {
+    --background: 40 24% 96%;
+    --sidebar: 38 22% 93%;
+    --surface: 40 30% 99%;
+    --sunken: 38 18% 91%;
+    --foreground: 28 22% 12%;
+    --subtle: 28 8% 36%;
+    --faint: 28 6% 56%;
+    --line: 36 14% 87%;
+    --line-strong: 36 12% 76%;
+    --accent: 26 92% 39%;
+    --accent-foreground: 0 0% 100%;
+    --success: 152 55% 30%;
+    --warning: 34 90% 38%;
+    --danger: 2 68% 46%;
+    --info: 214 65% 46%;
+    --shadow: 28 30% 20%;
+    --font-editor: 'JetBrains Mono', 'Cascadia Code', 'Sarasa Mono SC', 'Microsoft YaHei UI', 'PingFang SC', monospace;
+    color-scheme: light;
+  }
+
+  .dark {
+    --background: 28 13% 8%;
+    --sidebar: 28 13% 10%;
+    --surface: 28 12% 12%;
+    --sunken: 28 12% 6%;
+    --foreground: 36 24% 91%;
+    --subtle: 34 10% 66%;
+    --faint: 32 8% 46%;
+    --line: 28 10% 18%;
+    --line-strong: 28 10% 27%;
+    --accent: 26 90% 54%;
+    --accent-foreground: 28 20% 8%;
+    --success: 152 48% 52%;
+    --warning: 38 90% 58%;
+    --danger: 2 80% 66%;
+    --info: 214 80% 68%;
+    --shadow: 0 0% 0%;
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.25);
+  }
+
+  /* 细滚动条 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--line-strong)) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: hsl(var(--line-strong));
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--faint));
+    background-clip: content-box;
+    border: 2px solid transparent;
+  }
+
+  button,
+  [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-sm text-foreground placeholder:text-faint transition-colors;
+    @apply focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
+  }
+  .field:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium tracking-wide text-subtle;
+  }
+  .kbd {
+    @apply rounded border border-line-strong bg-sunken px-1 py-px font-mono text-[10px] text-subtle;
+  }
+  .section-title {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-faint;
+  }
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--sunken)) 25%,
+      hsl(var(--line)) 50%,
+      hsl(var(--sunken)) 75%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+/* ───────── Markdown 预览排版 ───────── */
+.prose-doc {
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: hsl(var(--foreground));
+  word-break: break-word;
+}
+.prose-doc > :first-child {
+  margin-top: 0;
+}
+.prose-doc h1,
+.prose-doc h2,
+.prose-doc h3,
+.prose-doc h4,
+.prose-doc h5,
+.prose-doc h6 {
+  font-family: 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', STSong, SimSun, serif;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 1.8em 0 0.6em;
+  scroll-margin-top: 16px;
+}
+.prose-doc h1 {
+  font-size: 1.75em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid hsl(var(--line));
+}
+.prose-doc h2 {
+  font-size: 1.4em;
+}
+.prose-doc h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 0.9em;
+  margin-right: 0.5em;
+  vertical-align: -0.1em;
+  border-radius: 2px;
+  background: hsl(var(--accent));
+}
+.prose-doc h3 {
+  font-size: 1.2em;
+}
+.prose-doc h4,
+.prose-doc h5,
+.prose-doc h6 {
+  font-size: 1.05em;
+}
+.prose-doc p {
+  margin: 0.8em 0;
+}
+.prose-doc a {
+  color: hsl(var(--accent));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-doc ul,
+.prose-doc ol {
+  margin: 0.8em 0;
+  padding-left: 1.6em;
+}
+.prose-doc ul {
+  list-style: disc;
+}
+.prose-doc ol {
+  list-style: decimal;
+}
+.prose-doc li {
+  margin: 0.25em 0;
+}
+.prose-doc li::marker {
+  color: hsl(var(--accent));
+}
+.prose-doc input[type='checkbox'] {
+  margin-right: 0.5em;
+  accent-color: hsl(var(--accent));
+}
+.prose-doc blockquote {
+  margin: 1em 0;
+  padding: 0.2em 1em;
+  border-left: 3px solid hsl(var(--accent) / 0.6);
+  background: hsl(var(--accent) / 0.06);
+  color: hsl(var(--subtle));
+  border-radius: 0 8px 8px 0;
+}
+.prose-doc hr {
+  border: none;
+  height: 1px;
+  margin: 2em 0;
+  background: linear-gradient(90deg, transparent, hsl(var(--line-strong)), transparent);
+}
+.prose-doc code {
+  font-family: var(--font-editor);
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  border-radius: 5px;
+  background: hsl(var(--sunken));
+}
+.prose-doc pre {
+  margin: 1em 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: hsl(var(--sunken));
+  border: 1px solid hsl(var(--line));
+  line-height: 1.6;
+}
+.prose-doc pre code {
+  padding: 0;
+  background: none;
+}
+.prose-doc .table-wrap {
+  margin: 1em 0;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid hsl(var(--line));
+}
+.prose-doc table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.94em;
+}
+.prose-doc th,
+.prose-doc td {
+  padding: 8px 14px;
+  border-bottom: 1px solid hsl(var(--line));
+  text-align: left;
+}
+.prose-doc th {
+  background: hsl(var(--sunken));
+  font-weight: 600;
+}
+.prose-doc tr:last-child td {
+  border-bottom: none;
+}
+.prose-doc img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* ───────── CodeMirror ───────── */
+/* @uiw/react-codemirror 的主题容器默认按内容撑高，需要显式约束为 100% 才能内部滚动 */
+.cm-theme,
+.cm-theme-none,
+.cm-theme-light,
+.cm-theme-dark {
+  height: 100%;
+  min-height: 0;
+}
+.cm-editor {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.cm-editor .cm-scroller {
+  overflow: auto;
+}
+
+/* ───────── Diff ───────── */
+.diff-row-add {
+  background: hsl(var(--success) / 0.1);
+  box-shadow: inset 3px 0 0 hsl(var(--success));
+}
+.diff-row-del {
+  background: hsl(var(--danger) / 0.09);
+  box-shadow: inset 3px 0 0 hsl(var(--danger));
+}
+.diff-mark-add {
+  background: hsl(var(--success) / 0.28);
+  border-radius: 3px;
+}
+.diff-mark-del {
+  background: hsl(var(--danger) / 0.26);
+  border-radius: 3px;
+  text-decoration: line-through;
+  text-decoration-color: hsl(var(--danger) / 0.6);
+}
+
+/* 录音波形光晕 */
+.rec-dot {
+  animation: rec-pulse 1.4s ease-out infinite;
+}
